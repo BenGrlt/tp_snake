@@ -7,14 +7,38 @@ from random import randint
 import pygame as pg
 
 pg.init()
-screen = pg.display.set_mode((400, 300))
+screen = pg.display.set_mode((400, 400))
 clock = pg.time.Clock()
+
+nb_tuiles_L, nb_tuiles_l = 30,30
+dim_tuiles_L, dim_tuiles_l = 400/nb_tuiles_L,400/nb_tuiles_l
+
+def damier():
+    for i in range(nb_tuiles_L):
+        for j in range(nb_tuiles_l):
+             x, y = dim_tuiles_L*i, dim_tuiles_l*j            # les coordonnées du coin du rectangle (en pixels)
+
+# la taille du rectangle
+             width, height = dim_tuiles_L, dim_tuiles_l     # largeur et hauteur du rectangle, toujours en pixels
+
+# on crée un objet 'Rect'
+             rect = pg.Rect(x, y, width, height)
+
+# la couleur de remplissage
+             a=255*((i+j)%2)
+             color = (a, a, a)        
+             print(rect)
+             print(color)
+# et on le dessine comme ceci dans l'écran virtuel
+             pg.draw.rect(screen, color, rect)
+             pg.display.update()
 
 # on rajoute une condition à la boucle: si on la passe à False le programme s'arrête
 running = True
 while running:
 
     clock.tick(1)
+    damier()
 
     # on itère sur tous les évênements qui ont eu lieu depuis le précédent appel
     # ici donc tous les évènements survenus durant la seconde précédente
@@ -31,10 +55,8 @@ while running:
 
     # xxx ici c'est discutable, car si on tape 'q'
     # on va quand même changer de couleur avant de sortir...
+    
 
-    random_color = (randint(0, 255), randint(0, 255), randint(0, 255))
-    screen.fill(random_color)
-    pg.display.update()
 
 
 # Enfin on rajoute un appel à pg.quit()
