@@ -27,11 +27,27 @@ def damier():
 # la couleur de remplissage
              a=255*((i+j)%2)
              color = (a, a, a)        
-             print(rect)
-             print(color)
 # et on le dessine comme ceci dans l'écran virtuel
              pg.draw.rect(screen, color, rect)
              pg.display.update()
+
+
+# les coordonnées du corps du serpent
+snake =[[10, 15], [11, 15], [12, 15]]
+def move(A):
+    for i in range(len(A)-1):
+         A[i]=A[i+1]
+         A[i][0]+=10
+         A[-1][0]+=10
+    for elt in A:
+        x, y = elt[0], elt[1]
+        width, height = dim_tuiles_L, dim_tuiles_l 
+        rect = pg.Rect(x, y, width, height)
+        color = (0,255,0)        
+        # et on le dessine comme ceci dans l'écran virtuel
+        pg.draw.rect(screen, color, rect)
+        pg.display.update()
+
 
 # on rajoute une condition à la boucle: si on la passe à False le programme s'arrête
 running = True
@@ -39,7 +55,7 @@ while running:
 
     clock.tick(1)
     damier()
-
+    move(snake)
     # on itère sur tous les évênements qui ont eu lieu depuis le précédent appel
     # ici donc tous les évènements survenus durant la seconde précédente
     for event in pg.event.get():
